@@ -18,21 +18,23 @@ export class AuthenticationController {
           email
         },
       });
+      
+      if(!account) return response.status(401).json({ message: "Usuário ou senha incorreta!" });
 
       let validatePassword = false;
 
-      if(account?.password) validatePassword = await bcrypt.compare(password, account.password);
+      if(account?.password) {
+        validatePassword = await bcrypt.compare(password, account.password);
+        delete account.password;
+      }
       
       if(!validatePassword) response.status(401).json({ message: "Usuário ou senha incorreta!" });
-      
-      if(!account) return response.status(401).json({ message: "Usuário ou senha incorreta!" });
-      
+
       const token = generateToken(account);
 
       return response.status(200).json({
         message: "Usuário autenticado!",
-        id: account?.id,
-        email,
+        account,
         token
       });
     } catch (e) {

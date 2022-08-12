@@ -9,12 +9,13 @@ datasource db {
 
 model Account {
   id              String   @id @default(uuid())
-  name            String
   email           String   @unique
+  name            String
   password        String
   verifiedEmail   Boolean @default(false)
   deleted         Boolean @default(false)
   created_at      DateTime @default(now())
+  
   categories      Category[]
 
   @@map("accounts")

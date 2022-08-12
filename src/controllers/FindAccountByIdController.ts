@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../database/prismaClient";
-import { Account } from "../entities/account";
-import { Prisma } from "@prisma/client";
+import { Prisma, Account } from "@prisma/client";
 
 export class FindAccountByIdController {
   async handle(request: Request, response: Response) {
@@ -15,6 +14,8 @@ export class FindAccountByIdController {
         }
       });
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       delete account?.password;
 
       return response.status(200).json(account);
