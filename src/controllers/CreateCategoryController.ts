@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { prismaClient } from "../database/prismaClient";
 import { Category } from "@prisma/client";
 
-export class CreateCategory {
+export class CreateCategoryController {
   async handle(request: Request, response: Response) {
     const { name, requestingUser } = request.body;
 
@@ -10,7 +10,11 @@ export class CreateCategory {
       const category: Category = await prismaClient.category.create({
         data: {
           name,
-          user_id: requestingUser.account.id
+          user: {
+            connect: {
+              id: requestingUser.account.id
+            }
+          }
         }
       });
 

@@ -14,7 +14,7 @@ model Account {
   password        String
   verifiedEmail   Boolean @default(false)
   deleted         Boolean @default(false)
-  created_at      DateTime @default(now())
+  createdAt      DateTime @default(now())
   
   categories      Category[]
 
@@ -25,10 +25,10 @@ model Category {
   id              String @id @default(uuid())
   name            String
   deleted         Boolean @default(false)
-  created_at      DateTime @default(now())
+  createdAt      DateTime @default(now())
   tasks           Task[]
-  user_id         String
-  user            Account @relation(fields: [user_id], references: [id])
+  userId         String
+  user            Account @relation(fields: [userId], references: [id])
 
   @@map("categories")
 }
@@ -37,12 +37,12 @@ model Task {
   id              String @id @default(uuid())
   title           String
   description     String?
-  concluded       Boolean
+  concluded       Boolean @default(false)
   deadline        DateTime
   deleted         Boolean @default(false)
-  created_at      DateTime @default(now())
-  category_id     String
-  category        Category @relation(fields: [category_id], references: [id])
+  createdAt      DateTime @default(now())
+  categoryId     String
+  category        Category @relation(fields: [categoryId], references: [id])
 
   @@map("tasks")
 }
