@@ -13,7 +13,6 @@ export class CreateTaskController {
           title,
           description,
           deadline: convertedDeadline,
-          // category_id: categoryId,
           category: {
             connect: {
               id: categoryId
