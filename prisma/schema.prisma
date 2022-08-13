@@ -25,9 +25,9 @@ model Category {
   id              String @id @default(uuid())
   name            String
   deleted         Boolean @default(false)
-  createdAt      DateTime @default(now())
+  createdAt       DateTime @default(now())
   tasks           Task[]
-  userId         String
+  userId          String
   user            Account @relation(fields: [userId], references: [id])
 
   @@map("categories")
@@ -40,8 +40,8 @@ model Task {
   concluded       Boolean @default(false)
   deadline        DateTime
   deleted         Boolean @default(false)
-  createdAt      DateTime @default(now())
-  categoryId     String
+  createdAt       DateTime @default(now())
+  categoryId      String
   category        Category @relation(fields: [categoryId], references: [id])
 
   @@map("tasks")
