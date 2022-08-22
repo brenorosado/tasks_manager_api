@@ -9,8 +9,8 @@ export class CreateAccountController {
   async handle(request: Request, response: Response) {
     const { email, password, name } = request.body;
 
-    if(!email) return response.status(400).json({ message: "E-mail é necessário." });
-    if(!password) return response.status(400).json({ message: "Senha é necessária." });
+    if(!email) return response.status(400).json({ message: "E-mail is required." });
+    if(!password) return response.status(400).json({ message: "Password is required." });
     
     try {
       const encryptedPassword = await bcrypt.hash(password, 10);
@@ -26,14 +26,15 @@ export class CreateAccountController {
 
       const token = generateToken(account);
 
-      return response.json({
+      return response.status(201).json({
+        message: "Account created with success!",
         account,
         token
       });
     } catch(e) {
       console.log("erro", e);
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code === "P2002") return response.status(409).json({ message: "Este endereço de e-mail já está cadastrado." });
+        if (e.code === "P2002") return response.status(409).json({ message: "This e-mail address is already been used." });
       }
     }
   }

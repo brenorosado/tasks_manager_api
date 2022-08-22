@@ -10,7 +10,7 @@ export class FindUserTasksController {
         where: {
           deleted: false,
           user: {
-            id
+            id 
           }
         },
         include: {

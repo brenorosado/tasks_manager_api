@@ -19,7 +19,7 @@ export class AuthenticationController {
         },
       });
       
-      if(!account) return response.status(401).json({ message: "Usuário ou senha incorreta!" });
+      if(!account) return response.status(401).json({ message: "Incorrect username or password!" });
 
       let validatePassword = false;
 
@@ -28,7 +28,7 @@ export class AuthenticationController {
         delete account.password;
       }
       
-      if(!validatePassword) response.status(401).json({ message: "Usuário ou senha incorreta!" });
+      if(!validatePassword) response.status(401).json({ message: "Incorrect username or password!" });
 
       const token = generateToken(account);
 
@@ -38,7 +38,7 @@ export class AuthenticationController {
         token
       });
     } catch (e) {
-      return response.status(400).json({ message: "Não foi possível realizar a autenticação." });
+      return response.status(400).json({ message: "Unable to perform authentication." });
     }
   }
 }
