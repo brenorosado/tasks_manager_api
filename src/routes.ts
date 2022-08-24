@@ -9,6 +9,7 @@ import { FindUserTasksController } from "./controllers/FindUserTasksController";
 import { CreateProjectController } from "./controllers/CreateProjectController";
 import { FindProjectsByUserId } from "./controllers/FindProjectsByUserId";
 import { UpdateProjectController } from "./controllers/UpdateProjectController";
+import { FindProjectById } from "./controllers/FindProjectById";
 
 const router = Router();
 
@@ -20,6 +21,7 @@ const createTask = new CreateTaskController();
 const findTasksByUser = new FindUserTasksController();
 
 const createProject = new CreateProjectController();
+const findProjectById = new FindProjectById();
 const findProjectsByUser = new FindProjectsByUserId();
 const updateProject = new UpdateProjectController();
 
@@ -29,6 +31,7 @@ router.get("/accounts/:id", auth, findAccountById.handle);
 
 router.post("/projects", auth, createProject.handle);
 router.put("/projects", auth, updateProject.handle);
+router.get("/projects/:id", auth, findProjectById.handle);
 router.get("/user-projects", auth, findProjectsByUser.handle);
 
 router.post("/categories", auth, createCategory.handle);
