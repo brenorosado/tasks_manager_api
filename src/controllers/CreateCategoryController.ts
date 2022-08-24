@@ -4,15 +4,15 @@ import { Category } from "@prisma/client";
 
 export class CreateCategoryController {
   async handle(request: Request, response: Response) {
-    const { name, requestingUser } = request.body;
+    const { name, projectId } = request.body;
 
     try {
       const category: Category = await prismaClient.category.create({
         data: {
           name,
-          user: {
+          project: {
             connect: {
-              id: requestingUser.account.id
+              id: projectId
             }
           }
         }
