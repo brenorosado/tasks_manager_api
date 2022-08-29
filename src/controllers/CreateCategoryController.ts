@@ -18,7 +18,7 @@ export class CreateCategoryController {
         }
       });
 
-      response.status(200).json(category);
+      return response.status(200).json(category);
         
     } catch (e) {
       console.log("erro", e);
