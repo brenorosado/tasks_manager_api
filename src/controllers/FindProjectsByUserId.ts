@@ -8,7 +8,11 @@ export class FindProjectsByUserId {
     try {
       const projects = await prismaClient.project.findMany({
         where: {
-          userId: requestingUser.account.id
+          userId: requestingUser.account.id,
+          deleted: false
+        },
+        orderBy: {
+          createdAt: "asc"
         }
       });
 

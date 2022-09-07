@@ -11,6 +11,7 @@ import { FindProjectById } from "./controllers/FindProjectById";
 import { FindCategoriesByProjectIdController } from "./controllers/FindCategoriesByProjectIdController";
 import { DeleteCategoryController } from "./controllers/DeleteCategoryController";
 import { UpdateCategoryController } from "./controllers/UpdateCategoryController";
+import { DeleteProjectController } from "./controllers/DeleteProjectController";
 
 const router = Router();
 
@@ -23,7 +24,7 @@ const createProject = new CreateProjectController();
 const findProjectById = new FindProjectById();
 const findProjectsByUser = new FindProjectsByUserId();
 const updateProject = new UpdateProjectController();
-const deleteProject = new DeleteCategoryController();
+const deleteProject = new DeleteProjectController();
 
 const findCategoriesByProjectId = new FindCategoriesByProjectIdController();
 const createCategory = new CreateCategoryController();

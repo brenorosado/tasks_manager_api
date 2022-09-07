@@ -13,6 +13,9 @@ export class FindCategoriesByProjectIdController {
           projectId: projectId as string,
           deleted: false
         },
+        orderBy: {
+          createdAt: "asc"
+        },
         include: {
           tasks: true
         }

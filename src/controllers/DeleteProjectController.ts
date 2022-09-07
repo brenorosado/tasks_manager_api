@@ -3,12 +3,12 @@ import { prismaClient } from "../database/prismaClient";
 
 export class DeleteProjectController {
   async handle(request: Request, response: Response) {
-    const { id } = request.body;
+    const { id } = request.query;
     
     try {
       await prismaClient.project.update({
         where: {
-          id
+          id: id as string
         },
         data: {
           deleted: true
