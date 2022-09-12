@@ -1,5 +1,3 @@
-import { Category } from "./category";
-
 export type Account = {
     id: string;
     email: string;
@@ -7,6 +5,5 @@ export type Account = {
     password?: string;
     verifiedEmail: boolean;
     deleted: boolean;
-    created_at?: Date;
-    categories?: Category[]
+    createdAt?: Date;
 }

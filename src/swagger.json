@@ -1,0 +1,110 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tasks manager API",
+        "description": "Tasks manager API description",
+        "termsOfService": "https://github.com/brenorosado",
+        "contact": {
+            "email": "brenorosado.cjr@gmail.com"
+        },
+        "version:": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Tasks manager API"
+        }
+    ],
+    "paths": {
+        "/accounts": {
+            "post": {
+                "summary": "Account registration",
+                "description": "This route is responsible for creating a new account",
+                "tags": ["Accounts"],
+                
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Account"
+                            },
+                            "examples": {
+                                "account": {
+                                    "value": {
+                                        "email": "brenorosado.cjr@gmail.com",
+                                        "password": "secretpassword123",
+                                        "name": "Breno Rosado Costa Junior"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Missing/Invalid attributes"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "account": {
+                                            "$ref": "#/components/schemas/Account"
+                                        },
+                                        "token": {
+                                            "$ref": "#/components/schemas/Token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Account": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "verifiedEmail": {
+                        "type": "boolean"
+                    },
+                    "deleted": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Token": {
+                "type": "string"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
