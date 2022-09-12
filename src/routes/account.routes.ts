@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { routeAdapter } from "../utils/routerAdapter";
-import { CreateAccountController } from "../controllers/CreateAccountController";
+
+import { CreateAccountController } from "../modules/Account/useCases/createAccount/CreateAccountController";
 import { FindAccountByIdController } from "../controllers/FindAccountByIdController";
+
+import { routeAdapter } from "../utils/routerAdapter";
+
 import { auth } from "../middlewares/auth";
+
 const accountRouter = Router();
 
 const createAccount = new CreateAccountController();

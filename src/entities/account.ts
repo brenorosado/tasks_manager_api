@@ -3,7 +3,6 @@ export type Account = {
     email: string;
     name: string;
     password?: string;
-    verifiedEmail: boolean;
     deleted: boolean;
     createdAt?: Date;
 }

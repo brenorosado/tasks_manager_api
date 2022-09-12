@@ -7,7 +7,7 @@ export interface Task {
     concluded: boolean;
     deadline: Date;
     deleted: boolean;
-    created_at: Date;
-    category_id: string;
+    createdAt: Date;
+    categoryId: string;
     category: Category
 }

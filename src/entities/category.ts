@@ -7,6 +7,6 @@ export interface Category {
     deleted: boolean;
     created_at: Date;
     tasks?: Task[];
-    user_id: string;
+    userId: string;
     user: Account;
 }
