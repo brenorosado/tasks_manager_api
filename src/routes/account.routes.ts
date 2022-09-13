@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { CreateAccountController } from "../modules/Account/createAccount/CreateAccountController";
-import { FindAccountByIdController } from "../controllers/FindAccountByIdController";
+import { FindAccountByIdController } from "../modules/Account/findAccountById/FindAccountByIdController";
 
 import { routeAdapter } from "../utils/routerAdapter";
 
