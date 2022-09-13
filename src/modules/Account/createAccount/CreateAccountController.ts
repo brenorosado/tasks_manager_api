@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { generateToken } from "../../../../utils/generateToken";
+import { generateToken } from "../../../utils/generateToken";
 import { CreateAccountUseCase } from "./CreateAccountUseCase";
 
 export class CreateAccountController {

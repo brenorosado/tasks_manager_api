@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AuthenticationController } from "./controllers/AuthenticationController";
+import { AuthenticationController } from "./modules/Authentication/authenticate/AuthenticateController";
 import { auth } from "./middlewares/auth";
 import { CreateCategoryController } from "./controllers/CreateCategoryController";
 import { CreateProjectController } from "./controllers/CreateProjectController";

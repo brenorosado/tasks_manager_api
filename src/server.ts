@@ -11,8 +11,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(router);
-app.use(errorHandler);
 
 app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server running at port ${PORT}`));

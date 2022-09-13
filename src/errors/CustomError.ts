@@ -1,10 +1,10 @@
-export class BadRequest extends Error {
+export class CustomError extends Error {
   public readonly message: string;
   public readonly statusCode: number;
-  
-  constructor(message: string) {
+    
+  constructor(status: number, message: string) {
     super(message);
     this.message = message;
-    this.statusCode = 400;
+    this.statusCode = status;
   }
 }

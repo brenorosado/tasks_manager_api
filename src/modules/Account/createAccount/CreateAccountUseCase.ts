@@ -1,17 +1,16 @@
-import { prismaClient } from "../../../../database/prismaClient";
-import { CreateAccountDTO } from "../../dtos/CreateAccountDTO";
+import { prismaClient } from "../../../database/prismaClient";
+import { CreateAccountDTO } from "./CreateAccountDTO";
 import bcrypt from "bcryptjs";
 import { Account } from "@prisma/client";
-import { BadRequest } from "../../../../errors/BadRequest";
-import { InternalServerError } from "../../../../errors/InternalServerError";
+import { InternalServerError } from "../../../errors/InternalServerError";
+import { requiredFields } from "../../../utils/requiredFields";
+import { CustomError } from "../../../errors/CustomError";
 
 export class CreateAccountUseCase {
   async handle(account: CreateAccountDTO) {
     const { email, password, name } = account;
 
-    if(!email) throw new BadRequest("E-mail is required");
-    if(!password) throw new BadRequest("Password is required");
-    if(!name) throw new BadRequest("Name is required");
+    requiredFields({ email, password, name});
 
     const emailExists = await prismaClient.account.findUnique({
       where: {
@@ -19,7 +18,7 @@ export class CreateAccountUseCase {
       }
     });
 
-    if (emailExists) throw new BadRequest(
+    if (emailExists) throw new CustomError(409,
       "E-mail already registered."
     );
 

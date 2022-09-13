@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { CreateAccountController } from "../modules/Account/useCases/createAccount/CreateAccountController";
+import { CreateAccountController } from "../modules/Account/createAccount/CreateAccountController";
 import { FindAccountByIdController } from "../controllers/FindAccountByIdController";
 
 import { routeAdapter } from "../utils/routerAdapter";
