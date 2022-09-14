@@ -2,7 +2,7 @@ import { Router } from "express";
 import { AuthenticationController } from "./modules/Authentication/authenticate/AuthenticateController";
 import { auth } from "./middlewares/auth";
 import { CreateCategoryController } from "./controllers/CreateCategoryController";
-import { CreateProjectController } from "./controllers/CreateProjectController";
+import { CreateProjectController } from "./modules/Project/createProject/CreateProjectController";
 import { FindProjectsByUserId } from "./controllers/FindProjectsByUserId";
 import { UpdateProjectController } from "./controllers/UpdateProjectController";
 import { FindProjectById } from "./controllers/FindProjectById";
