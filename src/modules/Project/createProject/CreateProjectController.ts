@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { prismaClient } from "../../../database/prismaClient";
-import { Project } from "@prisma/client";
+import { requiredFields } from "../../../utils/requiredFields";
+import { CreateProjectUseCase } from "./CreateProjectUseCase";
+import { InternalServerError } from "../../../errors/InternalServerError";
 
 export class CreateProjectController {
   async handle(request: Request, response: Response) {
@@ -10,24 +11,15 @@ export class CreateProjectController {
       requestingUser
     } = request.body;
     
-    try {
-      const project: Project = await prismaClient.project.create({
-        data: {
-          name,
-          icon,
-          user: {
-            connect: {
-              id: requestingUser.account.id
-            }
-          }
-        }
-      });
+    requiredFields({ name, icon, requestingUser });
+
+    const createProjet = new CreateProjectUseCase();
+
+    const project = await createProjet.handle({ name, icon, requestingUser });
+
+    if(!project) throw new InternalServerError("Something went wrong.");
     
-      response.status(200).json(project);
-            
-    } catch (e) {
-      console.log("erro", e);
-    }
+    return response.json({ project });
   }
 }
 

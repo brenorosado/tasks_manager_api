@@ -7,9 +7,6 @@ export class FindAccountByIdController {
   async handle(request: Request, response: Response) {
     const { id } = request.params;
     const { requestingUser } = request.body;
-
-    console.log("requestingUser", requestingUser);
-
     requiredFields({ id });
 
     const findAccountByIdUseCase = new FindAccountByIdUseCase();

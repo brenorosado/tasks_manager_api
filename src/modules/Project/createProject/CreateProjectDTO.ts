@@ -1,4 +1,7 @@
+import { Account } from "@prisma/client";
+
 export interface CreateProjectDTO {
     name: string;
+    icon: string;
+    requestingUser: Account;
 }
-// cbe5024a-4c6e-4ec7-b17b-3920209ccf2c

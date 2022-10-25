@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Application } from "express";
 import { router } from "./routes";
 import cors from "cors";
 import { errorHandler } from "./middlewares/errorHandler";
@@ -7,13 +7,17 @@ import swaggerDocs from "./swagger.json";
 
 const PORT = 8080;
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(router);
+const server: Application = express();
+server.use(cors());
+server.use(express.json());
+server.use(router);
 
-app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+server.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use(errorHandler);
+server.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server running at port ${PORT}`));
+if(process.env.NODE_ENV !== "test") {
+  server.listen(PORT, () => console.log(`Server running at port ${PORT}`));
+}
+
+export default server;
