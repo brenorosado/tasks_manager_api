@@ -2,7 +2,6 @@ import { prismaClient } from "../../../database/prismaClient";
 import { CreateAccountDTO } from "./CreateAccountDTO";
 import bcrypt from "bcryptjs";
 import { Account } from "@prisma/client";
-import { InternalServerError } from "../../../errors/InternalServerError";
 import { requiredFields } from "../../../utils/requiredFields";
 import { CustomError } from "../../../errors/CustomError";
 
@@ -30,10 +29,6 @@ export class CreateAccountUseCase {
         password: encryptedPassword
       }
     });
-
-    if(!newAccount) throw new InternalServerError(
-      "Something went wrong while creating an account."
-    );
 
     delete newAccount.password;
 

@@ -6,6 +6,7 @@ import { AuthenticateUseCase } from "./AuthenticateUseCase";
 export class AuthenticationController {
   async handle(request: Request, response: Response) {
     const { email, password } = request.body;
+
     requiredFields({ email, password });
 
     const authenticateUseCase = new AuthenticateUseCase();

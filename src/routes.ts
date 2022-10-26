@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { AuthenticationController } from "./modules/Authentication/authenticate/AuthenticateController";
 import { auth } from "./middlewares/auth";
 import { CreateCategoryController } from "./controllers/CreateCategoryController";
 import { CreateProjectController } from "./modules/Project/createProject/CreateProjectController";
@@ -12,10 +11,9 @@ import { UpdateCategoryController } from "./controllers/UpdateCategoryController
 import { DeleteProjectController } from "./controllers/DeleteProjectController";
 
 import { accountRouter } from "./routes/account.routes";
+import { authenticationRouter } from "./routes/authentication.route";
 
 const router = Router();
-
-const authenticate = new AuthenticationController();
 
 const createProject = new CreateProjectController();
 const findProjectById = new FindProjectById();
@@ -29,8 +27,7 @@ const updateCategory = new UpdateCategoryController();
 const deleteCategory = new DeleteCategoryController();
 
 router.use("/accounts", accountRouter);
-
-router.post("/authenticate", authenticate.handle);
+router.use("/authenticate", authenticationRouter);
 
 router.get("/projects", auth, findProjectsByUser.handle);
 router.get("/projects/:id", auth, findProjectById.handle);
