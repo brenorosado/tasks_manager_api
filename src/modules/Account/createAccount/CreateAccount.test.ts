@@ -46,7 +46,7 @@ describe("POST at /accounts", () => {
 
     expect(account.password).toBe(undefined);
     
-    expect(res.body.account).toEqual(
+    expect(account).toEqual(
       expect.objectContaining(expectedAccountResponse)
     );
   });
