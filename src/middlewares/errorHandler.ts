@@ -11,6 +11,13 @@ export const errorHandler = (error: any, req: Request, res: Response, next: Next
     });
   }
   
+  if(error instanceof Prisma.PrismaClientKnownRequestError) {
+    return res.status(400).json({
+      statusCode: 400,
+      message: `${error.message.split("cause: ")[1]}`
+    });
+  }
+  
   if(error && error.statusCode) {
     return res.status(error.statusCode).json({
       statusCode: error.statusCode,
