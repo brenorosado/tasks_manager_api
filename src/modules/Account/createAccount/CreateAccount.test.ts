@@ -7,7 +7,7 @@ import { describe, it } from "@jest/globals";
 let createdAccount: Account;
 let bearerToken: string;
 
-describe("POST at /accounts", () => {
+describe("POST at /account", () => {
   it.each([
     ["with an empty payload", {}],
     ["when missing email", { email: "", password: "123456", name: "Jest Test" }],
@@ -15,7 +15,7 @@ describe("POST at /accounts", () => {
     ["when missing name", { email: "jestteste@jesttest.com", password: "123456", name: "" }],
     ["when sending payload attributes in wrong type", { email: 123, password: 123.4, name: false }],
   ])("Must fail %s", async (chave, payload) => {
-    await request(server).post("/accounts")
+    await request(server).post("/account")
       .set("Accept", "application/json")
       .expect("content-type", /json/)
       .send(payload)
@@ -34,7 +34,7 @@ describe("POST at /accounts", () => {
   };
 
   it("Account must be created when providing email, password and name", async () => {
-    const res = await request(server).post("/accounts")
+    const res = await request(server).post("/account")
       .set("Accept", "application/json")
       .expect("content-type", /json/)
       .send(correctPayload)
@@ -53,7 +53,7 @@ describe("POST at /accounts", () => {
   });
 
   it("Account creation must faild when providing a registered email" , async () => {
-    await request(server).post("/accounts")
+    await request(server).post("/account")
       .set("Accept", "application/json")
       .expect("content-type", /json/)
       .send(correctPayload)
@@ -61,7 +61,7 @@ describe("POST at /accounts", () => {
   });
 
   it("Delete created account for test", async () => {
-    await request(server).delete(`/accounts/${createdAccount.id}`)
+    await request(server).delete(`/account/${createdAccount.id}`)
       .set("Accept", "application/json")
       .set("Authorization", `Bearer ${bearerToken}`)
       .expect("content-type", /json/)

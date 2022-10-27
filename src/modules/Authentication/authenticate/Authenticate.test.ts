@@ -24,7 +24,7 @@ let bearerToken: string;
 describe("POST at /authenticate", () => {
   it("Creating an account for authentication test", async () => {
     const res = await request(server)
-      .post("/accounts")
+      .post("/account")
       .set("Accept", "application/json")
       .send(accountCreationPayload)
       .expect("content-type", /json/)
@@ -71,7 +71,7 @@ describe("POST at /authenticate", () => {
 
   it("Deleting the account used for authentication test", async () => {
     await request(server)
-      .delete(`/accounts/${createdAccount.id}`)
+      .delete(`/account/${createdAccount.id}`)
       .set("Accept", "application/json")
       .set("Authorization", `Bearer ${bearerToken}`)
       .expect("content-type", /json/)

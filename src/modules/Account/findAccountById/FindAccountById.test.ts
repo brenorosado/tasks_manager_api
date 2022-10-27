@@ -15,9 +15,9 @@ const expectedAccountResponse = {
   
 let createdAccount: Account;
 let bearerToken: string;
-describe("GET at /accounts/:id", () => {
+describe("GET at /account/:id", () => {
   it("Creating an account for delete test", async () => {
-    const res = await request(server).post("/accounts")
+    const res = await request(server).post("/account")
       .set("Accept", "application/json")
       .expect("content-type", /json/)
       .send(accountCreationPayload)
@@ -29,14 +29,14 @@ describe("GET at /accounts/:id", () => {
   });
 
   it("Must fail when not sending a Bearer Token", async () => {
-    await request(server).get(`/accounts/${createdAccount.id}`)
+    await request(server).get(`/account/${createdAccount.id}`)
       .set("Accept", "application/json")
       .expect("content-type", /json/)
       .expect(403);
   });
 
   it("Must fail when providing an unexisting ID", async () => {
-    await request(server).get("/accounts/anyId")
+    await request(server).get("/account/anyId")
       .set("Accept", "application/json")
       .set("Authorization", `Bearer ${bearerToken}`)
       .expect("content-type", /json/)
@@ -44,7 +44,7 @@ describe("GET at /accounts/:id", () => {
   });
 
   it("Must be successfull when providing an existing ID", async () => {
-    const res = await request(server).get(`/accounts/${createdAccount.id}`)
+    const res = await request(server).get(`/account/${createdAccount.id}`)
       .set("Accept", "application/json")
       .set("Authorization", `Bearer ${bearerToken}`)
       .expect("content-type", /json/)
@@ -58,7 +58,7 @@ describe("GET at /accounts/:id", () => {
   });
 
   it("Delete the created account for test", async () => {
-    await request(server).delete(`/accounts/${createdAccount.id}`)
+    await request(server).delete(`/account/${createdAccount.id}`)
       .set("Accept", "application/json")
       .set("Authorization", `Bearer ${bearerToken}`)
       .expect("content-type", /json/)

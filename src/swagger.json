@@ -16,7 +16,7 @@
         }
     ],
     "paths": {
-        "/accounts": {
+        "/account": {
             "post": {
                 "summary": "Account registration",
                 "description": "This route is responsible for creating a new account",

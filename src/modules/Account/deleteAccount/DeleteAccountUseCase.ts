@@ -1,12 +1,9 @@
 import { Account } from "@prisma/client";
 import { prismaClient } from "../../../database/prismaClient";
 import { CustomError } from "../../../errors/CustomError";
-import { requiredFields } from "../../../utils/requiredFields";
 
 export class DeleteAccountUseCase {
   async handle(id: string) {
-
-    requiredFields({ id });
 
     const accountToDelete: Account = await prismaClient.account.findUnique({
       where: {

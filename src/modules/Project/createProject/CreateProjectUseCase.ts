@@ -6,13 +6,15 @@ export class CreateProjectUseCase {
   async handle(projectPayload: CreateProjectDTO) {
     const { name, icon, requestingUser } = projectPayload;
 
+    console.log({ name, icon, requestingUser });
+
     const project: Project = await prismaClient.project.create({
       data: {
         name,
         icon,
         user: {
           connect: {
-            id: requestingUser.id
+            id: requestingUser.account.id
           }
         }  
       }

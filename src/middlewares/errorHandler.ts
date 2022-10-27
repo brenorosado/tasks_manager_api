@@ -1,7 +1,9 @@
 import { Prisma } from "@prisma/client";
-import e, { Response, Request, NextFunction } from "express";
+import { Response, Request, NextFunction } from "express";
 
 export const errorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
+  console.log(error);
+  
   if(error instanceof Prisma.PrismaClientValidationError) {
     return res.status(400).json({
       statusCode: 400,
@@ -16,5 +18,4 @@ export const errorHandler = (error: any, req: Request, res: Response, next: Next
     });
   }
 
-  console.log(error);
 };
