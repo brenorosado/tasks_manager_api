@@ -49,12 +49,12 @@ describe("GET at /project/:id", () => {
   });
 
   it("Must be successfull when sending existing project Id", async () => {
-    const res = await request(server).get("/project/")
+    const res = await request(server).get(`/project/${createdProject.id}`)
       .set("Accept", "application/json")
       .set("Authorization", `Bearer ${bearerToken}`)
       .expect(200);
 
-    const project = res.body[0];
+    const project = res.body;
 
     expect(project).toEqual(
       expect.objectContaining(projectCreationPayload)
