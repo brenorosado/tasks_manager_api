@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { FindAccountByIdUseCase } from "../../Account/findAccountById/FindAccountByIdUseCase";
+import { FindProjectsByUserUseCase } from "./FindProjectsByUserUseCase";
 
 export class FindProjectsByUserController {
   async handle(request: Request, response: Response) {
@@ -7,9 +7,9 @@ export class FindProjectsByUserController {
     
     const { account } = requestingUser;
 
-    const findProjectsByUser = new FindAccountByIdUseCase();
+    const findProjectsByUser = new FindProjectsByUserUseCase();
 
-    const projects = findProjectsByUser.handle(account.id);
+    const projects = await findProjectsByUser.handle(account.id);
 
     return response.status(200).json(projects);
   }
