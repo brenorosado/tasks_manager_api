@@ -50,8 +50,7 @@ describe("GET at /projects", () => {
     await request(server).get("/project")
       .set("Accept", "application/json")
       .expect("content-type", /json/)
-      .expect(403);
-      
+      .expect(403);    
   });
 
 
