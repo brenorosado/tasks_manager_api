@@ -46,7 +46,7 @@ describe("POST at /authenticate", () => {
     ["when missing password", {payload: { email: "jestteste@jesttest.com", password: "" }, code: 400 }],
     ["when sending wrong payload", { payload: { email: "anyemail@anyemail.com", password: "anypassord" }, code: 401 }],
     ["when sending wrong payload", { payload: { email: 123, password: 123 }, code: 400 }],
-  ])("Must fail %s ", async (chave, info) => {
+  ])("Must fail %s ", async (key, info) => {
     await request(server)
       .post("/authenticate")
       .set("Accept", "application/json")

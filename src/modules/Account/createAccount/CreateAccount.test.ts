@@ -14,7 +14,7 @@ describe("POST at /account", () => {
     ["when missing password", { email: "jestteste@jesttest.com", password: "", name: "Jest Test" }],
     ["when missing name", { email: "jestteste@jesttest.com", password: "123456", name: "" }],
     ["when sending payload attributes in wrong type", { email: 123, password: 123.4, name: false }],
-  ])("Must fail %s", async (chave, payload) => {
+  ])("Must fail %s", async (key, payload) => {
     await request(server).post("/account")
       .set("Accept", "application/json")
       .expect("content-type", /json/)
