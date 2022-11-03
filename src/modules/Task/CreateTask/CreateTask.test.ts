@@ -100,17 +100,17 @@ describe("POST at /task", () => {
       .expect(200);
   });
 
-  //   it.each([
-  //     ["when missing name", { name: "", projectId: "projectId" }],
-  //     ["when missing projectId", { name: "Category Test", projectId: "" }],
-  //     ["with invalid projectId", { name: "Category Test", projectId: "projectId" }]
-  //   ])("Must fail %s", async (key, payload) => {
-  //     await request(server).post("/category")
-  //       .set("Authorization", `Bearer ${bearerToken}`)
-  //       .send(payload)
-  //       .expect("content-type", /json/)
-  //       .expect(400);
-  //   });
+  it.each([
+    ["when missing title", { title: "", categoryId: "categoryId" }],
+    ["when missing categoryId", { title: "Task Test", categoryId: "" }],
+    ["with invalid categoryId", { title: "Task Test", categoryId: "categoryId" }]
+  ])("Must fail %s", async (key, payload) => {
+    await request(server).post("/task")
+      .set("Authorization", `Bearer ${bearerToken}`)
+      .send(payload)
+      .expect("content-type", /json/)
+      .expect(400);
+  });
 
   it("Deleting the category", async () => {
     await request(server).delete(`/category/${createdCategory.id}`)

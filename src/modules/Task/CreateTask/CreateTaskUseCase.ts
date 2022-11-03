@@ -5,7 +5,7 @@ import { CreateTaskDTO } from "./CreateTaskDTO";
 export class CreateTaskUseCase {
   async handle({ title, description, deadline, categoryId }: CreateTaskDTO) {
 
-    requiredFields({ title, categoryId});
+    requiredFields({ title, categoryId });
 
     const createdTask = await prismaClient.task.create({
       data: {
