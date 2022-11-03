@@ -9,6 +9,6 @@ export class CreateTaskController {
 
     const createdTask = await createTask.handle({ title, description, deadline, categoryId });
 
-    return response.status(200).json(createdTask);
+    return response.status(201).json(createdTask);
   }
 }
