@@ -10,8 +10,8 @@ let createdProject: Project;
 let createdCategory: Category;
 
 const accountCreationPayload = {
-  email: "jesttest10@jesttest10.com.br",
-  name: "Jest Test 10",
+  email: "jesttest11@jesttest11.com.br",
+  name: "Jest Test 11",
   password: "123456"
 };
 
@@ -20,7 +20,7 @@ const projectCreationPayload = {
   icon: "Icon Test"
 };
 
-describe("DELETING at /category", () => {
+describe("DELETE at /category", () => {
   it("Creating account for test", async () => {
     const res = await request(server).post("/account")
       .set("Accept", "application/json")

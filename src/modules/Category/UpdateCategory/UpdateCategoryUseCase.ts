@@ -6,7 +6,7 @@ export class UpdateCategoryUseCase {
 
     requiredFields({ id, name });
 
-    const updatedCategory = prismaClient.category.update({
+    const updatedCategory = await prismaClient.category.update({
       where: {
         id
       },
