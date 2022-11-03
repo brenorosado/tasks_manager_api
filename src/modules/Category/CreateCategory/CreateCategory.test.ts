@@ -57,6 +57,13 @@ describe("POST at /category", () => {
     createdCategory = res.body;
   });
 
+  it("Must fail when not authenticated", async () => {
+    await request(server).post("/category")
+      .send({ name: "Category Test", projectId: createdProject.id })
+      .expect("content-type", /json/)
+      .expect(403);
+  });
+
   it.each([
     ["when missing name", { name: "", projectId: "projectId" }],
     ["when missing projectId", { name: "Category Test", projectId: "" }],
