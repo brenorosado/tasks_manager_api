@@ -7,7 +7,7 @@ export class UpdateTaskController {
     
     const updateTask = new UpdateTaskUseCase();
 
-    const updatedTask = updateTask.handle({ id, title, description, deadline });
+    const updatedTask = await updateTask.handle({ id, title, description, deadline });
 
     return response.status(200).json(updatedTask);
   }

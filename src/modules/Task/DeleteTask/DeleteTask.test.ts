@@ -11,8 +11,8 @@ let createdCategory: Category;
 let createdTask: Task;
 
 const accountCreationPayload = {
-  email: "jesttest13@jesttest13.com.br",
-  name: "Jest Test 13",
+  email: "jesttest15@jesttest15.com.br",
+  name: "Jest Test 15",
   password: "123456"
 };
 

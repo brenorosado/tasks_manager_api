@@ -11,8 +11,8 @@ let createdCategory: Category;
 let createdTask: Task;
 
 const accountCreationPayload = {
-  email: "jesttest13@jesttest13.com.br",
-  name: "Jest Test 13",
+  email: "jesttest14@jesttest14.com.br",
+  name: "Jest Test 14",
   password: "123456"
 };
 
@@ -21,7 +21,7 @@ const projectCreationPayload = {
   icon: "Icon Test"
 };
 
-describe("POST at /task", () => {
+describe("UPDATE at /task", () => {
   it("Creating account for tests", async () => {
     const res = await request(server).post("/account")
       .set("Accept", "application/json")
@@ -58,7 +58,7 @@ describe("POST at /task", () => {
     createdCategory = res.body;
   });
 
-  it("Must be successfull when sending the correct payload", async () => {
+  it("Creating task for test", async () => {
     const res = await request(server).post("/task")
       .set("Authorization", `Bearer ${bearerToken}`)  
       .send({
@@ -71,14 +71,10 @@ describe("POST at /task", () => {
       .expect(201);
 
     createdTask = res.body;
-
-    expect(createdTask.title).toBe("Task Test");
-    expect(createdTask.description).toBe("Description Test");
-    expect(createdTask.deadline).toBe("2022-11-03T02:13:37.462Z");
   });
 
   it("Must fail when not authenticated", async () => {
-    await request(server).post("/task")
+    await request(server).put("/task")
       .send({
         title: "Task Test",
         description: "Description Test",
@@ -89,23 +85,28 @@ describe("POST at /task", () => {
       .expect(403);
   });
 
+  it("Must be successfull when sending correct payload", async () => {
+    const res = await request(server).put("/task")
+      .set("Authorization", `Bearer ${bearerToken}`)  
+      .send({
+        ...createdTask,
+        title: "New Task Test",
+        description: "New Description Test",
+        deadline: "2022-11-03T14:22:37.462Z"
+      })
+      .expect("content-type", /json/)
+      .expect(200);
+
+    expect(res.body.title).toBe("New Task Test");
+    expect(res.body.description).toBe("New Description Test");
+    expect(res.body.deadline).toBe("2022-11-03T14:22:37.462Z");
+  });
+
   it("Deleting the created task for test", async () => {
     await request(server).delete(`/task/${createdTask.id}`)
       .set("Authorization", `Bearer ${bearerToken}`)
       .expect("content-type", /json/)
       .expect(200);
-  });
-
-  it.each([
-    ["when missing title", { title: "", categoryId: "categoryId" }],
-    ["when missing categoryId", { title: "Task Test", categoryId: "" }],
-    ["with invalid categoryId", { title: "Task Test", categoryId: "categoryId" }]
-  ])("Must fail %s", async (key, payload) => {
-    await request(server).post("/task")
-      .set("Authorization", `Bearer ${bearerToken}`)
-      .send(payload)
-      .expect("content-type", /json/)
-      .expect(400);
   });
 
   it("Deleting the category", async () => {
