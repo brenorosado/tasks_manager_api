@@ -1,12 +1,13 @@
 import server from "../../../server";
 import request from "supertest";
-import { Account, Project } from "@prisma/client";
+import { Account, Category, Project } from "@prisma/client";
 
 import { describe, it } from "@jest/globals";
 
 let createdAccount: Account;
 let bearerToken: string;
 let createdProject: Project;
+let createdCategory: Category;
 
 const accountCreationPayload = {
   email: "jesttest10@jesttest10.com.br",
@@ -46,26 +47,34 @@ describe("POST at /category", () => {
     createdProject = project;
   });
 
+  it("Must be successfull when sending correct payload", async () => {
+    const res = await request(server).post("/category")
+      .set("Authorization", `Bearer ${bearerToken}`)
+      .send({ name: "Category Test", projectId: createdProject.id })
+      .expect("content-type", /json/)
+      .expect(201);
+  
+    createdCategory = res.body;
+  });
+
   it.each([
     ["when missing name", { name: "", projectId: "projectId" }],
     ["when missing projectId", { name: "Category Test", projectId: "" }],
     ["with invalid projectId", { name: "Category Test", projectId: "projectId" }]
   ])("Must fail %s", async (key, payload) => {
     await request(server).post("/category")
-      .set("Accept", "application/json")
       .set("Authorization", `Bearer ${bearerToken}`)
       .send(payload)
       .expect("content-type", /json/)
       .expect(400);
   });
 
-  //   it("Must be successfull when sending correct payload", async () => {
-  //     await request(server).post("/category")
-  //       .set("Authorization", `Bearer ${bearerToken}`)
-  //       .send({ name: "Category Test", projectId: createdProject.id })
-  //       .expect("content-type", /json/)
-  //       .expect(201);
-  //   });
+  it("Deleting the category", async () => {
+    await request(server).delete(`/category/${createdCategory.id}`)
+      .set("Authorization", `Bearer ${bearerToken}`)
+      .expect("content-type", /json/)
+      .expect(200);
+  });
 
   it("Deleting the created project for test", async () => {
     await request(server).delete(`/project/${createdProject.id}`)
