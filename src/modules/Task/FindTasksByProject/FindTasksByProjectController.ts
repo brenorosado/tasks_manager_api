@@ -7,7 +7,7 @@ export class FindTasksByProjectController {
     
     const getTasksOfProject = new FindTasksByProjectUseCase();
 
-    const projectTasks = getTasksOfProject.handle(id);
+    const projectTasks = await getTasksOfProject.handle(id);
 
     return response.status(200).json(projectTasks);
   }
