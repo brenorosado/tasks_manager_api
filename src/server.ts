@@ -12,7 +12,7 @@ server.use(cors());
 server.use(express.json());
 server.use(router);
 
-server.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 server.use(errorHandler);
 

@@ -5,6 +5,7 @@
         "description": "Tasks manager API description",
         "termsOfService": "https://github.com/brenorosado",
         "contact": {
+            "name": "Breno Rosado",
             "email": "brenorosado.cjr@gmail.com"
         },
         "version:": "1.0.0"
@@ -18,22 +19,21 @@
     "paths": {
         "/account": {
             "post": {
-                "summary": "Account registration",
+                "summary": "Account creation",
                 "description": "This route is responsible for creating a new account",
-                "tags": ["Accounts"],
-                
+                "tags": ["Account"],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Account"
+                                "$ref": "#/components/schemas/AccountCreationRequest"
                             },
                             "examples": {
                                 "account": {
                                     "value": {
-                                        "email": "brenorosado.cjr@gmail.com",
-                                        "password": "secretpassword123",
-                                        "name": "Breno Rosado Costa Junior"
+                                        "email": "string",
+                                        "password": "string",
+                                        "name": "string"
                                     }
                                 }
                             }
@@ -52,7 +52,46 @@
                                     "type": "object",
                                     "properties": {
                                         "account": {
-                                            "$ref": "#/components/schemas/Account"
+                                            "$ref": "#/components/schemas/AccountCreationResponse"
+                                        },
+                                        "token": {
+                                            "$ref": "#/components/schemas/Token"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/account/{id}": {
+            "get": {
+                "summary": "Get logged user account",
+                "description": "This route return the logged user account information",
+                "tags": ["Account"],
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    },
+                    "description": "The user's account ID"
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Missing/Invalid attributes"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "account": {
+                                            "$ref": "#/components/schemas/AccountCreationResponse"
                                         },
                                         "token": {
                                             "$ref": "#/components/schemas/Token"
@@ -68,7 +107,21 @@
     },
     "components": {
         "schemas": {
-            "Account": {
+            "AccountCreationRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "AccountCreationResponse": {
                 "type": "object",
                 "properties": {
                     "email": {
@@ -106,5 +159,8 @@
                 "bearerFormat": "JWT"
             }
         }
-    }
+    },
+    "security": [{
+        "bearerAuth": []
+    }]
 }
